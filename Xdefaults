@@ -1,0 +1,32 @@
+Xft.dpi:                  96.0
+Xft.antialias:            true
+Xft.rgba:                 rgb
+Xft.hinting:              true
+Xft.hintstyle:            hintslight
+
+URxvt*title:              urxvt
+URxvt*termName:           rxvt
+URxvt*scrollTtyKeypress:  true
+URxvt*scrollTtyOutput:    false
+URxvt*scrollWithBuffer:   false
+URxvt*secondaryScroll:    true
+URxvt*scrollBar:          false
+URxvt*saveLines:          8000
+URxvt*buffered:           true
+URxvt*cursorColor:        green
+URxvt*cursorBlink:        true
+URxvt*underlineColor:     yellow
+
+URxvt*depth:              32
+URxvt*background:         [80]#000000
+URxvt*foreground:         [100]#ffffff
+URxvt*inheritPixmap:      false
+URxvt*tintColor:          white
+URxvt*shading:            40
+
+URxvt.font:               xft:Monospace:pixelsize=11:antialias=true
+URxvt.boldFont:           xft:Monospace:bold:pixelsize=11:antialias=true
+
+URxvt.perl-ext-common:    default,matcher
+URxvt.urlLauncher:        /usr/bin/chromium-browser
+URxvt.matcher.button:     1
