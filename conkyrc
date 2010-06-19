@@ -2,12 +2,18 @@
 background no
 out_to_console yes
 update_interval 1
+
+# Disk IO
+# ^fg(\#ebac54)^i(/usr/share/dzen/diskette.xbm) ^fg(white)${diskio}^fg(\#808080) - \
  
 TEXT
-^fg(\#ebac54)^i(/usr/share/dzen/arch_10x10.xbm) ^fg(\#FFFFFF)$kernel^fg(\#808080) - \
-^fg(\#ebac54)^i(/usr/share/dzen/cpu.xbm) ^fg(\#FFFFFF)${cpu}%^fg(\#808080) - \
-^fg(\#ebac54)^i(/usr/share/dzen/mem.xbm) ^fg(\#FFFFFF)${mem} (${memperc}%)^fg(\#808080) - \
-^fg(\#ebac54)${if_existing addr br0}^i(/usr/share/dzen/net_wired.xbm) ^fg(\#FFFFFF)${addr br0}^fg(\#808080) - ${endif}\
-^fg(\#00aa4a)^i(/usr/share/dzen/net_down_03.xbm) ${downspeedf br0} kb/s^fg(\#808080) - \
+^fg(\#ebac54)^i(/usr/share/dzen/arch_10x10.xbm) ^fg(white)$kernel^fg(\#808080) - \
+^fg(\#ebac54)^i(/usr/share/dzen/cpu.xbm) ^fg(white)${cpu cpu1}% ${cpu cpu2}% ${cpu cpu3}%^fg(\#808080) - \
+^fg(\#ebac54)^i(/usr/share/dzen/mem.xbm) ^fg(white)${mem} (${memperc}%)^fg(\#808080) - \
+^fg(\#ebac54)^i(/usr/share/dzen/net_wired.xbm) ${if_existing addr br0}\
+^fg(\#FFFFFF)${execi 60 get_router_ip.sh} \
+^fg(\#707070)(${addr br0})${else}No connection${endif} \
+^fg(\#00cc00)^i(/usr/share/dzen/net_down_03.xbm) ${downspeedf br0} kb/s^fg(\#808080) \
 ^fg(\#ff3333)^i(/usr/share/dzen/net_up_03.xbm) ${upspeedf br0} kb/s^fg(\#808080) - \
+^fg(\#ebac54)^i(/usr/share/dzen/volume.xbm) ^fg(white)${mixer}% - \
 ^fg(\#ebac54)^i(/usr/share/dzen/clock.xbm) ^fg(\#FFFF00)${time}

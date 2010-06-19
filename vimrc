@@ -3,7 +3,11 @@ syntax on
 " colorscheme vibrantink
 " colorscheme vividchalk
 colorscheme lin
-" set background=dark
+set background=dark
+
+" filetype on
+" au WinEnter,FileType ini colorscheme anotherdark
+
 let python_highlight_all = 1
 
 set ts=4
@@ -20,6 +24,7 @@ set wildmode=list:longest   " set wildmenu to list choice
 
 set backupdir=~/.vim/tmp/backup//
 set directory=~/.vim/tmp/swap//
+set hidden
 
 " Search stuff
 set hlsearch incsearch ignorecase smartcase
@@ -33,8 +38,6 @@ noremap gn :NERDTree<Cr>
 autocmd FileType python compiler pylint
 let g:pylint_onwrite = 0
 let g:pylint_show_rate = 0
-
-au BufRead,BufNewFile *.scss set filetype=scss
 
 " Key Mappings
 " Mobility - easily move between tabs

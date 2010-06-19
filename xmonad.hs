@@ -11,10 +11,10 @@ import XMonad.Hooks.SetWMName
 import XMonad.Util.EZConfig
 import XMonad.Util.Run (spawnPipe)
 
-import XMonad.Layout.Accordion
 import XMonad.Layout.Grid
-import XMonad.Layout.Spiral
+import XMonad.Layout.Dishes
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.NoBorders
 
 import qualified XMonad.StackSet as W
 
@@ -26,21 +26,21 @@ myTopStatusBar  = "dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -
 myBtmStatusBar  = "conky -c ~/.conky_bottom_dzen | dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'c' -bg '#161616' -fg '#FFFFFF' -fn " ++ myFont
 myBitmapsDir    = "/usr/share/dzen"
 myWorkspaces    = 
-    [ "1:dev1"
-    , "2:dev2"
-    , "3:web1"
-    , "4:web2"
-    , "5:music"
-    , "6:misc1"
-    , "7:misc2"
-    , "8:logs1"
-    , "9:logs2"
+    [ "1:term1"
+    , "2:term2"
+    , "3:web"
+    , "4:music"
+    , "5:misc1"
+    , "6:misc2"
+    , "7:vbox"
+    , "8:comm"
+    , "9:logs"
     ]
 
 
 main = do
     dzenTopBar <- spawnPipe myTopStatusBar
-    dzenBtmBar <- spawnPipe myBtmStatusBar
+    spawnPipe myBtmStatusBar
     xmonad $ defaultConfig
         { terminal              = myTerminal
         , layoutHook            = myLayoutHook
@@ -55,23 +55,26 @@ main = do
         } `additionalKeys`        myKeyz
 
 myKeyz = 
-    [ ((mod1Mask, xK_F2),         spawn "bashrun")
-    , ((0,                        0x1008ff12  ), spawn "amixer set Master toggle")  -- mute volume
-    , ((0,                        0x1008ff11  ), spawn "amixer set Master 5-")      -- decrease volume
-    , ((0,                        0x1008ff13  ), spawn "amixer set Master 5+")      -- increase volume
+    [ ((mod1Mask, xK_F2     ), spawn "bashrun")         -- intuitive Alt-F2 = run window
+    , ((mod1Mask, xK_F4     ), kill)                    -- intuitive Alt-F4 = quit
+    , ((mod1Mask, xK_Tab    ), windows W.focusDown)     -- intuitive Alt-Tab = next window
+
+    , ((0, 0x1008ff12       ), spawn "amixer set Master toggle")  -- mute volume
+    , ((0, 0x1008ff11       ), spawn "amixer set Master 5-")      -- decrease volume
+    , ((0, 0x1008ff13       ), spawn "amixer set Master 5+")      -- increase volume
     ]
 
 -- Hooks {{{
 myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ defaultPP
     { ppCurrent          = dzenColor "#ebac54" "#161616" . pad
-    , ppVisible          = dzenColor "white"   "#161616" . pad
-    , ppHidden           = dzenColor "white"   "#161616" . pad
-    , ppHiddenNoWindows  = dzenColor "#444444" "#161616" . pad
+    , ppVisible          = dzenColor "yellow"  "#161616" . pad
+    , ppHidden           = dzenColor "gray"    "#161616" . pad
+    , ppHiddenNoWindows  = dzenColor "#606060" "#161616" . pad
     , ppUrgent           = dzenColor "red"     "#161616" . pad
     , ppWsSep            = " "
     , ppSep              = "  |  "
-    , ppLayout           = dzenColor "#ebac54" "#161616" .
+    , ppLayout           = dzenColor "#ff6600" "#161616" .
                            (\x -> case x of
                                "ResizableTall"         ->  "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
                                "Mirror ResizableTall"  ->  "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
@@ -79,15 +82,15 @@ myLogHook h = dynamicLogWithPP $ defaultPP
                                "Simple Float"          ->  "~"
                                _                       ->  x
                            )
-    , ppTitle            = (" " ++) . dzenColor "white" "#161616" . dzenEscape
+    , ppTitle            = (" " ++) . dzenColor "#99ff00" "#161616" . dzenEscape
     , ppOutput           = hPutStrLn h
     }
 
-myLayoutHook = avoidStruts $ (ThreeCol 1 (3/100) (1/2) ||| Accordion ||| Grid ||| spiral(6/7) ||| Full)
+myLayoutHook = avoidStruts $ smartBorders $ (ThreeCol 1 (3/100) (1/2) ||| Grid ||| Dishes 2 (1/6) ||| Full)
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
-    [ [isFullscreen        --> doF W.focusDown <+> doFullFloat     ]
+    [ [isFullscreen        --> doF W.focusDown <+> doFullFloat     ]    -- allows focusing on other windows without leaving FS
     , [className     =? c  --> doShift "3:web1"  |  c  <- myWebs   ]
     , [className     =? c  --> doCenterFloat     |  c  <- myFloats ]
     , [name          =? n  --> doCenterFloat     |  n  <- myNames  ]
@@ -96,7 +99,8 @@ myManageHook = (composeAll . concat $
         role      = stringProperty "WM_WINDOW_ROLE"
         name      = stringProperty "WM_NAME"
 
-        myFloats  = ["VirtualBox", "Save As...", "MPlayer"]
-        myWebs    = ["Firefox"]
-        myNames   = ["bashrun"]
+        myFloats  = ["VirtualBox", "MPlayer", "Save As..."]
+        myWebs    = ["Firefox", "Chrome"]
+        myNames   = ["Firefox Preferences", "Chromium Options", "bashrun"]
 -- }}}
+
