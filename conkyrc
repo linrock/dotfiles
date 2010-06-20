@@ -15,5 +15,5 @@ TEXT
 ^fg(\#707070)(${addr br0})${else}No connection${endif} \
 ^fg(\#00cc00)^i(/usr/share/dzen/net_down_03.xbm) ${downspeedf br0} kb/s^fg(\#808080) \
 ^fg(\#ff3333)^i(/usr/share/dzen/net_up_03.xbm) ${upspeedf br0} kb/s^fg(\#808080) - \
-^fg(\#ebac54)^i(/usr/share/dzen/volume.xbm) ^fg(white)${mixer}% - \
+^fg(\#ebac54)^i(/usr/share/dzen/volume.xbm) ^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif} - \
 ^fg(\#ebac54)^i(/usr/share/dzen/clock.xbm) ^fg(\#FFFF00)${time}
