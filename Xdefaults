@@ -1,20 +1,27 @@
 Xft.dpi:                  96.0
-Xft.antialias:            true
+Xft.antialias:            True
 Xft.rgba:                 rgb
-Xft.hinting:              true
+Xft.hinting:              True
 Xft.hintstyle:            hintslight
+
+URxvt.font:               xft:Monospace:pixelsize=11:antialias=true
+URxvt.boldFont:           xft:Monospace:bold:pixelsize=11:antialias=true
+
+URxvt.perl-ext-common:    default,matcher
+URxvt.urlLauncher:        /usr/bin/chromium-browser
+URxvt.matcher.button:     1
 
 URxvt*title:              urxvt
 URxvt*termName:           rxvt
-URxvt*scrollTtyKeypress:  true
-URxvt*scrollTtyOutput:    false
-URxvt*scrollWithBuffer:   false
-URxvt*secondaryScroll:    true
-URxvt*scrollBar:          false
+URxvt*scrollTtyKeypress:  True
+URxvt*scrollTtyOutput:    False
+URxvt*scrollWithBuffer:   False
+URxvt*secondaryScroll:    True
+URxvt*scrollBar:          False
 URxvt*saveLines:          8000
-URxvt*buffered:           true
+URxvt*buffered:           True
 URxvt*cursorColor:        green
-URxvt*cursorBlink:        true
+URxvt*cursorBlink:        True
 URxvt*underlineColor:     yellow
 
 URxvt*depth:              32
@@ -24,9 +31,12 @@ URxvt*inheritPixmap:      false
 URxvt*tintColor:          white
 URxvt*shading:            40
 
-URxvt.font:               xft:Monospace:pixelsize=11:antialias=true
-URxvt.boldFont:           xft:Monospace:bold:pixelsize=11:antialias=true
+! configure perl extensions
+urxvt*perl-lib:           /home/meteor/.urxvt
+urxvt*perl-ext-common:    vim-scrollback.pl
 
-URxvt.perl-ext-common:    default,matcher
-URxvt.urlLauncher:        /usr/bin/chromium-browser
-URxvt.matcher.button:     1
+! configure vim-scrollback
+urxvt*vim-scrollback:        M-s
+urxvt*vim-scrollback-paste:  M-p
+urxvt*vim-scrollback-bg:     16
+urxvt*vim-scrollback-fg:     10
