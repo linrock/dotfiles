@@ -53,5 +53,3 @@ map <silent><F2> :PREVCOLOR<cr>
 " For intuitive copy/pasting
 map <C-c> "*y
 map <C-c> "*Y
-map <C-v> "*p
-

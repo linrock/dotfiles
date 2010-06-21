@@ -4,11 +4,14 @@ Xft.rgba:                 rgb
 Xft.hinting:              True
 Xft.hintstyle:            hintslight
 
-URxvt.font:               xft:Monospace:pixelsize=11:antialias=true
-URxvt.boldFont:           xft:Monospace:bold:pixelsize=11:antialias=true
+URxvt.font:               xft:DejaVu Sans Mono:pixelsize=11:antialias=true
+URxvt.boldFont:           xft:DejaVu Sans Mono:bold:pixelsize=11:antialias=true
+!URxvt.font:               xft:Monaco:pixelsize=11:antialias=true:hinting=true
+!URxvt.boldFont:           xft:Monaco:pixelsize=11:antialias=true:bold:hinting=true
+URxvt.buffered:           True
 
 URxvt.perl-ext-common:    default,matcher
-URxvt.urlLauncher:        /usr/bin/chromium-browser
+URxvt.urlLauncher:        /usr/bin/firefox
 URxvt.matcher.button:     1
 
 URxvt*title:              urxvt
