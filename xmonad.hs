@@ -5,6 +5,7 @@ import XMonad
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.FadeInactive
+import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks (avoidStruts, manageDocks)
 import XMonad.Hooks.ManageHelpers
 
@@ -18,30 +19,33 @@ import XMonad.Layout.NoBorders
 
 import qualified XMonad.StackSet as W
 
-myBarBgColor    = "#000000"
-
-myTerminal      = "urxvtc"
-myFont          = "-*-terminus-medium-*-*-*-12-120-75-75-*-*-iso8859-*"
-myTopStatusBar  = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
-myBtmStatusBar  = "conky -c ~/.conky_bottom_dzen | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
-myBitmapsDir    = "/usr/share/dzen"
-myWorkspaces    = 
+-- Variables {{{
+myBarBgColor      = "#000000"
+myTerminal        = "urxvtc"
+myFont            = "-*-terminus-medium-*-*-*-12-120-75-75-*-*-iso8859-*"
+myXmonadStatusBar = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
+mySysStatusBar    = "conky -c ~/.conky_bottom_dzen | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
+myBitmapsDir      = "/usr/share/dzen"
+myWorkspaces      = 
     [ "1:term"
-    , "2:web"
+    , "2:fire"
     , "3:dev"
-    , "4:fire"
+    , "4:web"
     , "5:media"
     , "6:misc"
     , "7:win"
     , "8:comm"
     , "9:logs"
     ]
+-- }}}
 
-
+-- Main {{{
 main = do
-    dzenTopBar <- spawnPipe myTopStatusBar
-    spawnPipe myBtmStatusBar
-    xmonad $ defaultConfig
+    dzenTopBar <- spawnPipe myXmonadStatusBar
+    spawnPipe mySysStatusBar
+    xmonad
+        $ withUrgencyHook dzenUrgencyHook {args = ["-bg", "black", "-fg", "red"]}
+        $ defaultConfig
         { terminal              = myTerminal
         , layoutHook            = myLayoutHook
         , manageHook            = myManageHook
@@ -53,9 +57,9 @@ main = do
         , normalBorderColor     = "#707070"
         , focusedBorderColor    = "#ffff00"
         } `additionalKeys`
-            [ ((mod1Mask, xK_F2   ), spawn "bashrun")         -- intuitive Alt-F2 = run window
-            , ((mod1Mask, xK_F4   ), kill)                    -- intuitive Alt-F4 = quit
-            , ((mod1Mask, xK_Tab  ), windows W.focusDown)     -- intuitive Alt-Tab = next window
+            [ ((mod1Mask, xK_F2   ), spawn "bashrun")         -- Alt-F2 = run window
+            , ((mod1Mask, xK_F4   ), kill)                    -- Alt-F4 = quit
+            , ((mod1Mask, xK_Tab  ), windows W.focusDown)     -- Alt-Tab = next window
 
             , ((0, 0x1008ff12     ), spawn "amixer set Master toggle")  -- mute volume
             , ((0, 0x1008ff11     ), spawn "amixer set Master 5-")      -- decrease volume
@@ -63,6 +67,7 @@ main = do
             
             , ((mod4Mask, xK_q    ), spawn "xmonad --recompile; killall dzen2; xmonad --restart")
             ]
+-- }}}
 
 -- Hooks {{{
 myLogHook :: Handle -> X ()
@@ -93,9 +98,12 @@ myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
     -- [[ isFullscreen        --> doF W.focusDown <+> doFullFloat     ]
     [[ isFullscreen        --> doFullFloat                          ]
-    ,[ className     =? c  --> doShift "2:web"   |  c  <- myWebs    ]
-    ,[ className     =? c  --> doShift "4:fire"  |  c  <- myFires   ]
+    ,[ className     =? r  --> doIgnore          |  r  <- myIgnores ]
+    ,[ className     =? c  --> doShift "2:fire"  |  c  <- myFires   ]
+    ,[ className     =? c  --> doShift "4:web"   |  c  <- myWebs    ]
     ,[ className     =? c  --> doShift "5:media" |  c  <- myMedia   ]
+    ,[ className     =? c  --> doShift "7:win"   |  c  <- myWins    ]
+    ,[ className     =? c  --> doShift "8:comm"  |  c  <- myComms   ]
     ,[ className     =? c  --> doCenterFloat     |  c  <- myFloats  ]
     ,[ wmName        =? n  --> doCenterFloat     |  n  <- myNames   ]
     ])
@@ -103,10 +111,13 @@ myManageHook = (composeAll . concat $
         -- wmRole    = stringProperty "WM_WINDOW_ROLE"
         wmName    = stringProperty "WM_NAME"
 
-        myWebs    = ["Chrome"]
+        myIgnores = ["trayer"]
         myFires   = ["Firefox", "Minefield"]
+        myWebs    = ["Chrome"]
         myMedia   = ["MPlayer"]
-        myFloats  = ["VirtualBox", "MPlayer", "Save As..."]
+        myWins    = ["VirtualBox"]
+        myComms   = ["Pidgin"]
+        myFloats  = ["VirtualBox", "Artha", "MPlayer", "Pidgin", "Save As..."]
         myNames   = ["Firefox Preferences", "Add-ons", "Chromium Options", "bashrun"]
 -- }}}
 

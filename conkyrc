@@ -12,21 +12,23 @@ update_interval 1
 TEXT
 ^fg(lightblue)^i(/usr/share/dzen/arch_10x10.xbm) ^fg(white)$kernel^fg(\#808080) - \
 ^fg(\#c9c299)^i(/usr/share/dzen/cpu.xbm) \
-${if_match ${cpu cpu1} >= 80}^fg(red)${cpu cpu1}% ${endif}\
-${if_match ${cpu cpu1} >= 50}^fg(yellow)${cpu cpu1}% ${endif}\
-${if_match ${cpu cpu1} < 50}^fg(white)${cpu cpu1}% ${endif}\
-${if_match ${cpu cpu2} >= 80}^fg(red)${cpu cpu2}% ${endif}\
-${if_match ${cpu cpu2} >= 50}^fg(yellow)${cpu cpu2}% ${endif}\
-${if_match ${cpu cpu2} < 50}^fg(white)${cpu cpu2}% ${endif}\
-${if_match ${cpu cpu3} >= 80}^fg(red)${cpu cpu3}% ${endif}\
-${if_match ${cpu cpu3} >= 50}^fg(yellow)${cpu cpu3}% ${endif}\
-${if_match ${cpu cpu3} < 50}^fg(white)${cpu cpu3}% ${endif}\
+${if_match ${cpu cpu1} >= 80}^fg(red)${endif}\
+${if_match ${cpu cpu1} < 80}^fg(yellow)${endif}\
+${if_match ${cpu cpu1} < 50}^fg(white)${endif}\
+${cpu cpu1}% \
+${if_match ${cpu cpu2} >= 80}^fg(red)${endif}\
+${if_match ${cpu cpu2} < 80}^fg(yellow)${endif}\
+${if_match ${cpu cpu2} < 50}^fg(white)${endif}\
+${cpu cpu2}% \
+${if_match ${cpu cpu3} >= 80}^fg(red)${endif}\
+${if_match ${cpu cpu3} < 80}^fg(yellow)${endif}\
+${if_match ${cpu cpu3} < 50}^fg(white)${endif}\
+${cpu cpu3}% \
 ^fg(\#808080)- \
 ^fg(\#e9cfec)^i(/usr/share/dzen/mem.xbm) ^fg(white)${mem} (${memperc}%)^fg(\#808080) - \
-^fg(:ray)^i(/usr/share/dzen/net_wired.xbm) ${if_existing addr br0}\
-^fg(\#FFFFFF)${execi 60 get_router_ip.sh}^fg(\#808080) - \
-${else}No connection${endif}\
+^fg(:ray)^i(/usr/share/dzen/net_wired.xbm) \
+${if_existing addr br0}^fg(\#FFFFFF)${execi 60 get_router_ip.sh}^fg(\#808080)${else}No connection${endif} - \
 ^fg(\#87f717)^i(/usr/share/dzen/net_down_03.xbm)^fg(white) ${downspeedf br0} kb/s^fg(\#808080) \
 ^fg(\#f75d79)^i(/usr/share/dzen/net_up_03.xbm)^fg(white) ${upspeedf br0} kb/s^fg(\#808080) - \
 ^fg(\#95b9c7)^i(/usr/share/dzen/volume.xbm) ^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif}^fg(\#808080) - \
-^fg(yellow)^i(/usr/share/dzen/clock.xbm) ^fg(\#ffe87c)${time}
+^fg(yellow)^i(/usr/share/dzen/clock.xbm) ^fg(white)${time %a %D}^fg(\#ffe87c) ${time %H:%M:%S}

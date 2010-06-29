@@ -4,12 +4,18 @@ Xft.rgba:                 rgb
 Xft.hinting:              True
 Xft.hintstyle:            hintslight
 
-URxvt.font:               xft:DejaVu Sans Mono:pixelsize=11:antialias=true
-URxvt.boldFont:           xft:DejaVu Sans Mono:bold:pixelsize=11:antialias=true
+URxvt.font:               -*-profont-*-*-*-*-11-*-*-*-*-*-*-*
+URxvt.boldFont:           -nil-profont-medium-r-normal--15-150-72-72-c-70-iso8859-1
+URxvt.italicFont:         -*-profont-*-*-*-*-11-*-*-*-*-*-*-*
+!URxvt.font:               xft:Terminus:size=8:antialias=false
+!URxvt.boldFont:           xft:Terminus:bold:size=8:antialias=false
+!URxvt.font:               xft:Monaco:size=8:antialias=true:hinting=true
+!URxvt.boldFont:           xft:Monaco:bold:size=8:antialias=true:hinting=true
 !URxvt.font:               xft:Monaco:pixelsize=11:antialias=true:hinting=true
 !URxvt.boldFont:           xft:Monaco:pixelsize=11:antialias=true:bold:hinting=true
 URxvt.buffered:           True
 
+URxvt.urgentOnBell:       True
 URxvt.perl-ext-common:    default,matcher
 URxvt.urlLauncher:        /usr/bin/firefox
 URxvt.matcher.button:     1

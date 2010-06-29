@@ -2,7 +2,9 @@ syntax on
 " colorscheme inkpot
 " colorscheme vibrantink
 " colorscheme vividchalk
-colorscheme lin
+" colorscheme neverland
+colorscheme wombat256
+
 set background=dark
 
 " filetype on
