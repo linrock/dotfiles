@@ -92,7 +92,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     }
 
 myLayoutHook = avoidStruts $ smartBorders $
-    (ThreeCol 1 (3/100) (1/3) ||| Grid ||| Dishes 2 (1/6) ||| Full)
+    (ThreeCol 1 (3/100) (1/3) ||| Grid ||| Dishes 2 (1/6) ||| noBorders Full)
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
