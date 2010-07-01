@@ -61,10 +61,6 @@ main = do
             , ((mod1Mask, xK_F4   ), kill)                    -- Alt-F4 = quit
             , ((mod1Mask, xK_Tab  ), windows W.focusDown)     -- Alt-Tab = next window
 
-            , ((0, 0x1008ff12     ), spawn "amixer set Master toggle")  -- mute volume
-            , ((0, 0x1008ff11     ), spawn "amixer set Master 5-")      -- decrease volume
-            , ((0, 0x1008ff13     ), spawn "amixer set Master 5+")      -- increase volume
-            
             , ((mod4Mask, xK_q    ), spawn "xmonad --recompile; killall dzen2; xmonad --restart")
             ]
 -- }}}
@@ -92,7 +88,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     }
 
 myLayoutHook = avoidStruts $ smartBorders $
-    (ThreeCol 1 (3/100) (1/3) ||| Grid ||| Dishes 2 (1/6) ||| noBorders Full)
+    (noBorders Full ||| Grid ||| Dishes 2 (1/6))
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $

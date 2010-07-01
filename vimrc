@@ -11,6 +11,7 @@ set background=dark
 " au WinEnter,FileType ini colorscheme anotherdark
 
 let python_highlight_all = 1
+filetype plugin indent on
 
 set ts=4
 set sw=4

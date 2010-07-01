@@ -1,4 +1,4 @@
-fortune -a | cowsay -f $(ls -1 ~/.cows | shuf | tail -1)
+fortune -a | COWPATH=~/.cows cowsay -f $(ls -1 ~/.cows | shuf | tail -1)
 
 # Orange/yellow
 # export PS1='\[\e[1;38;5;208m\]-\u@\[\e[0;38;5;184m\]\h \[\e[0;38;5;215m\]\w \[\e[0;0m\]-> \[$NC\]'
@@ -9,7 +9,8 @@ fortune -a | cowsay -f $(ls -1 ~/.cows | shuf | tail -1)
 # Green/Light green
 # export PS1='\[\033[1;38;5;82m\]-\u@\[\033[0;38;5;34m\]\h \[\033[0;38;5;76m\]\w \[\033[0m\]=> '
 
-export PS1='\[$(tput setaf 82)\]-\u- \[$(tput setaf 10)\]$(parse_git_branch)\[$(tput sgr0)\]=> '
+export PS1='\[$(tput setaf 82)\]-\u-$(tput setaf 191)($(date +%H:%M))\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput sgr0)\] => '
+
 export GREP_COLORS='mt=01;32:fn=01;34'
 export PYTHONPATH=/srv/http/nginx/django/:
 export PATH=$PATH:/usr/local/bin
