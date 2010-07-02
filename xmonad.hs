@@ -24,7 +24,7 @@ myBarBgColor      = "#000000"
 myTerminal        = "urxvtc"
 myFont            = "-*-terminus-medium-*-*-*-12-120-75-75-*-*-iso8859-*"
 myXmonadStatusBar = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
-mySysStatusBar    = "conky -c ~/.conky_bottom_dzen | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
+mySysStatusBar    = "conky -c ~/.conkyrc | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
 myBitmapsDir      = "/usr/share/dzen"
 myWorkspaces      = 
     [ "1:term"

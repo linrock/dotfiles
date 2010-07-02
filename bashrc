@@ -32,4 +32,4 @@ function parse_git_branch {
 
 set -o vi
 
-. $HOME/.bash_aliases
+. $HOME/.aliases
