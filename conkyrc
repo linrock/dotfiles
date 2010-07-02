@@ -31,5 +31,5 @@ ${cpu cpu3}% \
 ${if_existing addr br0}^fg(\#FFFFFF)${execi 60 get_router_ip.sh}^fg(\#808080)${else}No connection${endif} - \
 ^fg(\#87f717)^i(/usr/share/dzen/net_down_03.xbm)^fg(white) ${downspeedf br0} kb/s^fg(\#808080) \
 ^fg(\#f75d79)^i(/usr/share/dzen/net_up_03.xbm)^fg(white) ${upspeedf br0} kb/s^fg(\#808080) - \
-^fg(\#95b9c7)^i(/usr/share/dzen/volume.xbm) ^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif}^fg(\#808080) - \
+^fg(\#95b9c7)^i(/usr/share/dzen/spkr_01.xbm) ^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif}^fg(\#808080) - \
 ^fg(yellow)^i(/usr/share/dzen/clock.xbm) ^fg(white)${time %a %D}^fg(\#ffe87c) ${time %H:%M:%S}

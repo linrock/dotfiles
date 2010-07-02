@@ -3,6 +3,9 @@
 import System.IO
 import XMonad 
 
+import XMonad.Prompt
+import XMonad.Prompt.RunOrRaise (runOrRaisePrompt)
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.UrgencyHook
@@ -39,6 +42,21 @@ myWorkspaces      =
     ]
 -- }}}
 
+-- Prompt {{{
+myXPConfig :: XPConfig
+myXPConfig = defaultXPConfig
+    { font                  = myFont
+    , bgColor               = "#000000"
+    , fgColor               = "yellow"
+    , bgHLight              = "#c0c0c0"
+    , fgHLight              = "#000000"
+    , promptBorderWidth     = 0
+    , position              = Top
+    , height                = 24
+    , historyFilter         = deleteConsecutive
+    }
+-- }}}
+
 -- Main {{{
 main = do
     dzenTopBar <- spawnPipe myXmonadStatusBar
@@ -55,11 +73,12 @@ main = do
         , focusFollowsMouse     = False
         , workspaces            = myWorkspaces
         , normalBorderColor     = "#707070"
-        , focusedBorderColor    = "#ffff00"
+        , focusedBorderColor    = "#00ff00"
         } `additionalKeys`
-            [ ((mod1Mask, xK_F2   ), spawn "bashrun")         -- Alt-F2 = run window
-            , ((mod1Mask, xK_F4   ), kill)                    -- Alt-F4 = quit
-            , ((mod1Mask, xK_Tab  ), windows W.focusDown)     -- Alt-Tab = next window
+            -- [ ((mod1Mask, xK_F2   ), spawn "bashrun")         -- Alt-F2 = run window
+            [ ((mod1Mask, xK_F2   ), runOrRaisePrompt myXPConfig)
+            , ((mod1Mask, xK_F4   ), kill)                          -- Alt-F4 = quit
+            , ((mod1Mask, xK_Tab  ), windows W.focusDown)           -- Alt-Tab = next window
 
             , ((mod4Mask, xK_q    ), spawn "xmonad --recompile; killall dzen2; xmonad --restart")
             ]
@@ -75,14 +94,7 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     , ppUrgent           = dzenColor "red"     myBarBgColor . pad
     , ppWsSep            = " "
     , ppSep              = "  |  "
-    , ppLayout           = dzenColor "#ff6600" myBarBgColor .
-                           (\x -> case x of
-                               "ResizableTall"         ->  "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
-                               "Mirror ResizableTall"  ->  "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
-                               "Full"                  ->  "^i(" ++ myBitmapsDir ++ "/full.xbm)"
-                               "Simple Float"          ->  "~"
-                               _                       ->  x
-                           )
+    , ppLayout           = dzenColor "#ff6600" myBarBgColor . pad
     , ppTitle            = (" " ++) . dzenColor "#99ff00" myBarBgColor . dzenEscape
     , ppOutput           = hPutStrLn h
     }
