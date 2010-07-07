@@ -6,7 +6,6 @@ xcompmgr &                      # for compositing/transparency
 xbindkeys &                     # custom hot keys
 urxvtd -q -f                    # urxvt daemon
 
-# start_trayer.sh &               # a script to invoke trayer
 # parcellite &                    # clipboard management
 
 xsetroot -cursor_name left_ptr  # use a real mouse pointer

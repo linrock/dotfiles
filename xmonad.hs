@@ -125,7 +125,7 @@ myManageHook = (composeAll . concat $
         myMedia   = ["MPlayer"]
         myWins    = ["VirtualBox"]
         myComms   = ["Pidgin"]
-        myFloats  = ["VirtualBox", "Artha", "MPlayer", "Pidgin", "Save As..."]
+        myFloats  = ["VirtualBox", "Nitrogen", "MPlayer", "Pidgin", "Save As..."]
         myNames   = ["Firefox Preferences", "Add-ons", "Chromium Options", "bashrun"]
 -- }}}
 

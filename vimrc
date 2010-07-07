@@ -6,11 +6,10 @@
 " colorscheme neverland
 
 syntax on
-colorscheme wombat256
+colorscheme wombat
 set background=dark
 let python_highlight_all = 1
-filetype plugin indent on
-" filetype on
+filetype plugin on
 " au WinEnter,FileType ini colorscheme anotherdark
 
 set ts=4
