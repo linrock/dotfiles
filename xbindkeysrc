@@ -1,5 +1,4 @@
-# vim:ft=sh
-
+# For the benefit of emacs users: -*- shell-script -*-
 ###########################
 # xbindkeys configuration #
 ###########################
@@ -40,25 +39,32 @@
 
 # Examples of commands:
 
-# Pauses shell.fm
 "echo pause | nc localhost 54311"
     m:0x0 + c:172
     XF86AudioPlay
 
-"amixer -q sset Master toggle"
-    m:0x0 + c:121
-    XF86AudioMute
-
-"amixer -q sset Master 5%-"
+"amixer set Master 5%-"
     m:0x0 + c:122
     XF86AudioLowerVolume
 
-"amixer -q sset Master 5%+"
+"amixer set Master 5%+"
     m:0x0 + c:123
     XF86AudioRaiseVolume
 
-"xbindkeys_show" 
-  control+shift + q
+"amixer set Master toggle"
+    m:0x0 + c:121
+    XF86AudioMute
+
+# "xbindkeys_show"
+#   control+shift + q
+
+# set directly keycode (here control + f with my keyboard)
+# "xterm"
+#   c:41 + m:0x4
+
+# specify a mouse button
+# "xterm"
+#   control + b:2
 
 #"xterm -geom 50x20+20+20"
 #   Shift+Mod2+alt + s

@@ -33,7 +33,7 @@ myWorkspaces      =
     [ "1:term"
     , "2:fire"
     , "3:dev"
-    , "4:web"
+    , "4:ssh"
     , "5:media"
     , "6:misc"
     , "7:win"
@@ -108,7 +108,7 @@ myManageHook = (composeAll . concat $
     [[ isFullscreen        --> doFullFloat                          ]
     ,[ className     =? r  --> doIgnore          |  r  <- myIgnores ]
     ,[ className     =? c  --> doShift "2:fire"  |  c  <- myFires   ]
-    ,[ className     =? c  --> doShift "4:web"   |  c  <- myWebs    ]
+    ,[ className     =? c  --> doShift "4:ssh"   |  c  <- myWebs    ]
     ,[ className     =? c  --> doShift "5:media" |  c  <- myMedia   ]
     ,[ className     =? c  --> doShift "7:win"   |  c  <- myWins    ]
     ,[ className     =? c  --> doShift "8:comm"  |  c  <- myComms   ]
@@ -125,7 +125,7 @@ myManageHook = (composeAll . concat $
         myMedia   = ["MPlayer"]
         myWins    = ["VirtualBox"]
         myComms   = ["Pidgin"]
-        myFloats  = ["VirtualBox", "Nitrogen", "MPlayer", "Pidgin", "Save As..."]
-        myNames   = ["Firefox Preferences", "Add-ons", "Chromium Options", "bashrun"]
+        myFloats  = ["Gtick", "Nitrogen", "feh", "MPlayer", "Pidgin", "Save As..."]
+        myNames   = ["Namoroka Preferences", "Add-ons", "Downloads", "Chromium Options", "bashrun"]
 -- }}}
 
