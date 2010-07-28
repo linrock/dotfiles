@@ -19,6 +19,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.Dishes
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
 
 import qualified XMonad.StackSet as W
 
@@ -28,7 +29,6 @@ myTerminal        = "urxvtc"
 myFont            = "-*-terminus-medium-*-*-*-12-120-75-75-*-*-iso8859-*"
 myXmonadStatusBar = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
 mySysStatusBar    = "conky -c ~/.conkyrc | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
-myBitmapsDir      = "/usr/share/dzen"
 myWorkspaces      = 
     [ "1:term"
     , "2:fire"
@@ -100,7 +100,12 @@ myLogHook h = dynamicLogWithPP $ defaultPP
     }
 
 myLayoutHook = avoidStruts $ smartBorders $
-    (noBorders Full ||| Grid ||| Dishes 2 (1/6))
+    onWorkspace     "1:term"    (Grid ||| Dishes 2 (1/6)) $
+    onWorkspace     "2:fire"    (noBorders Full ||| Grid) $
+    onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6)) $
+    onWorkspace     "4:ssh"     (Grid ||| Dishes 2 (1/6)) $
+    onWorkspace     "7:win"     (noBorders Full) $
+    (noBorders Full ||| Grid ||| ThreeCol 1 (3/100) (1/3) ||| Dishes 2 (1/6))
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
