@@ -47,12 +47,12 @@ myXPConfig :: XPConfig
 myXPConfig = defaultXPConfig
     { font                  = myFont
     , bgColor               = "#000000"
-    , fgColor               = "yellow"
+    , fgColor               = "#9afeff"
     , bgHLight              = "#c0c0c0"
     , fgHLight              = "#000000"
-    , promptBorderWidth     = 0
     , position              = Top
     , height                = 24
+    , promptBorderWidth     = 0
     , historyFilter         = deleteConsecutive
     }
 -- }}}
@@ -62,18 +62,18 @@ main = do
     dzenTopBar <- spawnPipe myXmonadStatusBar
     spawnPipe mySysStatusBar
     xmonad
-        $ withUrgencyHook dzenUrgencyHook {args = ["-bg", "black", "-fg", "red"]}
+        $ withUrgencyHook NoUrgencyHook
         $ defaultConfig
         { terminal              = myTerminal
         , layoutHook            = myLayoutHook
         , manageHook            = myManageHook
-        , logHook               = myLogHook dzenTopBar >> fadeInactiveLogHook 0xdddddddd
+        , logHook               = myLogHook dzenTopBar
         , modMask               = mod4Mask      -- set the mod key to the windows key
         , borderWidth           = 2
         , focusFollowsMouse     = False
         , workspaces            = myWorkspaces
         , normalBorderColor     = "#707070"
-        , focusedBorderColor    = "#00ff00"
+        , focusedBorderColor    = "#fbb917"
         } `additionalKeys`
             -- [ ((mod1Mask, xK_F2   ), spawn "bashrun")         -- Alt-F2 = run window
             [ ((mod1Mask, xK_F2   ), runOrRaisePrompt myXPConfig)
@@ -86,12 +86,12 @@ main = do
 
 -- Hooks {{{
 myLogHook :: Handle -> X ()
-myLogHook h = dynamicLogWithPP $ defaultPP
-    { ppCurrent          = dzenColor "#ebac54" myBarBgColor . pad
-    , ppVisible          = dzenColor "yellow"  myBarBgColor . pad
-    , ppHidden           = dzenColor "gray"    myBarBgColor . pad
-    , ppHiddenNoWindows  = dzenColor "#606060" myBarBgColor . pad
-    , ppUrgent           = dzenColor "red"     myBarBgColor . pad
+myLogHook h = dynamicLogWithPP $ dzenPP
+    { ppCurrent          = dzenColor "yellow"  ""       . pad
+    , ppVisible          = dzenColor "#d0d0d0" ""       . pad
+    , ppHidden           = dzenColor "#707070" ""       . pad
+    , ppHiddenNoWindows  = dzenColor "#303030" ""       . pad
+    , ppUrgent           = dzenColor ""        "yellow"
     , ppWsSep            = " "
     , ppSep              = "  |  "
     , ppLayout           = dzenColor "#ff6600" myBarBgColor . pad
@@ -131,6 +131,6 @@ myManageHook = (composeAll . concat $
         myWins    = ["VirtualBox"]
         myComms   = ["Pidgin"]
         myFloats  = ["Gtick", "Nitrogen", "feh", "MPlayer", "Pidgin", "Save As..."]
-        myNames   = ["Namoroka Preferences", "Add-ons", "Downloads", "Chromium Options", "bashrun"]
+        myNames   = ["Namoroka Preferences", "Add-ons", "Downloads", "Manage Proxies", "Proxy Info", "Chromium Options", "bashrun"]
 -- }}}
 
