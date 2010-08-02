@@ -1,6 +1,7 @@
 fortune -a | COWPATH=/usr/share/cows cowsay -f $(ls -1 /usr/share/cows | shuf | head -1)
 
 autoload -Uz compinit && compinit
+autoload -Uz vcs_info
 bindkey -v
 
 export HISTFILE=~/.histfile
@@ -31,6 +32,11 @@ zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*:prompt:*' check-for-changes true
+zstyle ':vcs_info:*:prompt:*' unstagedstr "*"
+zstyle ':vcs_info:*:prompt:*' stagedstr "+"
+
 setopt correct
 setopt appendhistory
 setopt noautomenu
@@ -43,8 +49,12 @@ setopt printexitvalue
 # Window title
 #------------------------------
 case $TERM in
-    *xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
-        precmd () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" } 
+    *xterm*|rxvt|rxvt-unicode|rxvt-256color)
+        precmd () {
+            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
+            vcs_info
+            RPROMPT="${vcs_info_msg_0_}"
+        } 
         preexec () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" }
     ;;
     screen)
