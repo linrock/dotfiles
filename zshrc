@@ -11,9 +11,9 @@ export SAVEHIST=1000
 export PATH="${PATH}:/usr/local/bin"
 export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
 
-export BROWSER="firefox"
-export TERM="xterm-256color"
 export EDITOR="vim"
+export BROWSER="firefox"
+export TERM="rxvt-256color"
 export PS1=$'%{\e[1;38;5;82m%}-%n-%{\e[1;38;5;191m%}%t %{\e[1;38;5;194m%}=> %{\e[0m%}'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
@@ -33,6 +33,8 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
 zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' formats '%F{5}-[%F{2}%b%a%u%F{5}]-%f '
+zstyle ':vcs_info:*' actionformats '%F{5}-[%F{2}%b%F{3}|%F{1}%a%u%F{5}]-%f '
 zstyle ':vcs_info:*:prompt:*' check-for-changes true
 zstyle ':vcs_info:*:prompt:*' unstagedstr "*"
 zstyle ':vcs_info:*:prompt:*' stagedstr "+"
@@ -49,22 +51,14 @@ setopt printexitvalue
 # Window title
 #------------------------------
 case $TERM in
-    *xterm*|rxvt|rxvt-unicode|rxvt-256color)
+    xterm*|rxvt*)
         precmd () {
             print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
             vcs_info
             RPROMPT="${vcs_info_msg_0_}"
-        } 
-        preexec () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" }
-    ;;
-    screen)
-        precmd () { 
-            print -Pn "\e]83;title \"$1\"\a" 
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" 
         }
-        preexec () { 
-            print -Pn "\e]83;title \"$1\"\a" 
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" 
+        preexec () {
+            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a"
         }
-    ;; 
+        ;;
 esac
