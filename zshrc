@@ -1,4 +1,4 @@
-fortune -a | COWPATH=/usr/share/cows cowsay -f $(ls -1 /usr/share/cows | shuf | head -1)
+fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
 
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
@@ -13,11 +13,7 @@ export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
 
 export EDITOR="vim"
 export BROWSER="firefox"
-export TERM="rxvt-256color"
-export PS1=$'%{\e[1;38;5;82m%}-%n-%{\e[1;38;5;191m%}%t %{\e[1;38;5;194m%}=> %{\e[0m%}'
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
-
-eval `cat ~/.dir_colors`
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
@@ -45,13 +41,20 @@ setopt noautomenu
 setopt listtypes
 setopt printexitvalue
 
-. ~/.aliases
+source ~/.aliases
+source ~/.dir_colors
 
-#------------------------------
-# Window title
-#------------------------------
+#-------------------------
+# Term-specific commands
+#-------------------------
 case $TERM in
-    xterm*|rxvt*)
+    linux)
+        export PS1=$'%{\e[1;34m%}-%n- %{\e[0m%}=> '
+        ;;
+
+    rxvt*)
+        export TERM="rxvt-256color"
+        export PS1=$'%{\e[1;38;5;82m%}-%n-%{\e[1;38;5;191m%}%t %{\e[1;38;5;194m%}=> %{\e[0m%}'
         precmd () {
             print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
             vcs_info
