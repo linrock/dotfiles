@@ -1,0 +1,12 @@
+" vim:ft=vim
+
+noremap <C-c> <C-v><C-c>
+
+noremap j 3j
+noremap k 3k
+
+noremap J gT
+noremap K gt
+
+noremap p <cr>
+map m :bmarks<cr>
