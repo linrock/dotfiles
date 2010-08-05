@@ -20,31 +20,36 @@ URxvt.perl-ext-common:    default,matcher
 URxvt.urlLauncher:        /usr/bin/firefox
 URxvt.matcher.button:     1
 
-URxvt*title:              urxvt
-URxvt*termName:           rxvt
-URxvt*scrollTtyKeypress:  True
-URxvt*scrollTtyOutput:    False
-URxvt*scrollWithBuffer:   False
-URxvt*secondaryScroll:    True
-URxvt*scrollBar:          False
-URxvt*saveLines:          8000
-URxvt*buffered:           True
-URxvt*cursorColor:        green
-URxvt*cursorBlink:        True
-URxvt*underlineColor:     yellow
+urxvt*title:              urxvt
+urxvt*termName:           rxvt
+urxvt*scrollTtyKeypress:  True
+urxvt*scrollTtyOutput:    False
+urxvt*scrollWithBuffer:   False
+urxvt*secondaryScroll:    True
+urxvt*scrollBar:          False
+urxvt*saveLines:          8000
+urxvt*buffered:           True
+urxvt*cursorColor:        green
+urxvt*cursorBlink:        True
+urxvt*underlineColor:     yellow
 
-URxvt*depth:              32
-URxvt*background:         [80]#000000
-URxvt*foreground:         [100]#ffffff
-URxvt*inheritPixmap:      false
-URxvt*tintColor:          white
-URxvt*shading:            40
+!urxvt*depth:              24
+!urxvt*transparent:        true
+!urxvt*inheritPixmap:      true
+!urxvt*shading:            20
 
-! configure perl extensions
-urxvt*perl-lib:           /home/meteor/.urxvt
+urxvt*depth:              32
+urxvt*inheritPixmap:      false
+
+urxvt*background:         [90]black
+urxvt*foreground:         [100]white
+urxvt*fading:             20
+urxvt*fadeColor:          [50]black
+
+urxvt*perl-lib:           /home/rakshasa/.urxvt
 urxvt*perl-ext-common:    vim-scrollback.pl
+!urxvt*perl-ext-common:    mark-yank-urls.pl
 
-! configure vim-scrollback
 urxvt*vim-scrollback:        M-s
 urxvt*vim-scrollback-paste:  M-p
 urxvt*vim-scrollback-bg:     16
