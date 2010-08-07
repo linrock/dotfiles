@@ -1,0 +1,47 @@
+# vim:ft=conkyrc
+
+background no
+out_to_console yes
+update_interval 1
+
+# Disk IO
+# ^fg(\#ebac54)^i(/home/fenrir/.dzen/icons/diskette.xbm) ^fg(white)${diskio}^fg(\#808080) - \
+
+# Internal IP
+# ^fg(\#707070)(${addr br0})
+
+# External IP
+# ^fg(:ray)^i(/home/fenrir/.dzen/icons/net_wired.xbm) \
+# ${if_existing addr br0}^fg(\#FFFFFF)${execi 60 get_router_ip.sh}^fg(\#808080)${else}No connection${endif} - \
+
+TEXT
+^fg(lightblue)^i(/home/fenrir/.dzen/icons/arch_10x10.xbm) ^fg(white)$kernel^fg(\#808080) - \
+^fg(\#c9c299)^i(/home/fenrir/.dzen/icons/cpu.xbm) \
+${if_match ${cpu cpu1} >= 80}^fg(red)${endif}\
+${if_match ${cpu cpu1} < 80}^fg(yellow)${endif}\
+${if_match ${cpu cpu1} < 50}^fg(white)${endif}\
+${cpu cpu1}% \
+${if_match ${cpu cpu2} >= 80}^fg(red)${endif}\
+${if_match ${cpu cpu2} < 80}^fg(yellow)${endif}\
+${if_match ${cpu cpu2} < 50}^fg(white)${endif}\
+${cpu cpu2}% \
+^fg(\#808080)- \
+^fg(\#e9cfec)^i(/home/fenrir/.dzen/icons/mem.xbm) \
+^fg(white)${mem} (${memperc}%)^fg(\#808080) - \
+\
+${if_existing /sys/class/net/wlan0/operstate up }\
+^fg(\#99ffff)^i(/home/fenrir/.dzen/icons/wifi_02.xbm) \
+^fg(white)${addr wlan0} \
+^fg(yellow)(${execi 60 iwgetid | sed -ne 's|.*"\(.*\)"|\1|p'})^fg(\#808080) - \
+${endif}\
+\
+^fg(\#87f717)^i(/home/fenrir/.dzen/icons/net_down_03.xbm)\
+^fg(white) ${downspeedf wlan0} kb/s^fg(\#808080) \
+^fg(\#f75d79)^i(/home/fenrir/.dzen/icons/net_up_03.xbm)\
+^fg(white) ${upspeedf wlan0} kb/s^fg(\#808080) - \
+^fg(yellow)^i(/home/fenrir/.dzen/icons/bat_full_01.xbm) \
+^fg(white)${battery}^fg(\#808080) - \
+^fg(\#95b9c7)^i(/home/fenrir/.dzen/icons/spkr_01.xbm) \
+^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif}^fg(\#808080) - \
+^fg(yellow)^i(/home/fenrir/.dzen/icons/clock.xbm) \
+^fg(white)${time %a %D}^fg(\#ffe87c) ${time %H:%M:%S}
