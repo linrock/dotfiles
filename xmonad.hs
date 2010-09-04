@@ -86,11 +86,11 @@ main = do
 -- Hooks {{{
 myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ dzenPP
-    { ppCurrent          = dzenColor "yellow"  ""       . pad
-    , ppVisible          = dzenColor "#f4f4f4" ""       . pad
-    , ppHidden           = dzenColor "#707070" ""       . pad
-    , ppHiddenNoWindows  = dzenColor "#303030" ""       . pad
-    , ppUrgent           = dzenColor ""        "yellow"
+    { ppCurrent          = dzenColor "#ffcc00" "black" . pad
+    , ppVisible          = dzenColor "#f4f4f4" "black" . pad
+    , ppHidden           = dzenColor "#707070" "black" . pad
+    , ppHiddenNoWindows  = dzenColor "#303030" "black" . pad
+    , ppUrgent           = dzenColor "black"   "orange" . pad
     , ppWsSep            = " "
     , ppSep              = "  |  "
     , ppLayout           = dzenColor "#ff6600" myBarBgColor . pad
@@ -100,8 +100,8 @@ myLogHook h = dynamicLogWithPP $ dzenPP
 
 myLayoutHook = avoidStruts $ smartBorders $
     onWorkspace     "1:term"    (Grid ||| Dishes 2 (1/6)) $
-    onWorkspace     "2:fire"    (noBorders Grid) $
-    onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6)) $
+    onWorkspace     "2:fire"    (noBorders Grid ||| noBorders Full) $
+    onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6) ||| noBorders Full) $
     onWorkspace     "4:ssh"     (Grid ||| Dishes 2 (1/6)) $
     onWorkspace     "5:vbox"    (noBorders Full) $
     onWorkspace     "7:media"   (noBorders Full ||| Grid) $

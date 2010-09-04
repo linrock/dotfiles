@@ -1,15 +1,12 @@
-#!/bin/sh
+xcompmgr -fF -D 4.2 &
+nitrogen --restore &
+xbindkeys &
+unclutter -jitter 20 &
+urxvtd -q -f -o
 
-nitrogen --restore              # set backgrounds
-unclutter -jitter 20 &          # hide inactive mouse
-xcompmgr &                      # for compositing/transparency
-xbindkeys &                     # custom hot keys
-urxvtd -q -f                    # urxvt daemon
-
-# parcellite &                    # clipboard management
-
-xsetroot -cursor_name left_ptr  # use a real mouse pointer
-xset r rate 200 50              # set keystroke repeat rate
-xset m 0                        # disable mouse acceleration
+xset r rate 200 50
+xset m 0
+xsetroot -cursor_name left_ptr
+# xrandr --output Monitor1 --auto --right-of Monitor0 
 
 exec xmonad

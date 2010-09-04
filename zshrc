@@ -1,5 +1,8 @@
 fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
 
+source ~/.aliases
+source /etc/profile
+
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 bindkey -v
@@ -8,7 +11,7 @@ export HISTFILE=~/.histfile
 export HISTSIZE=1000
 export SAVEHIST=1000
 
-export PATH="${PATH}:/usr/local/bin"
+export PATH="$(cope_path):${PATH}:/usr/local/bin"
 export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
 
 export EDITOR="vim"
@@ -40,21 +43,20 @@ setopt appendhistory
 setopt noautomenu
 setopt listtypes
 setopt printexitvalue
-
-source ~/.aliases
-source ~/.dir_colors
+setopt histignoredups
 
 #-------------------------
 # Term-specific commands
 #-------------------------
 case $TERM in
     linux)
-        export PS1=$'%{\e[1;34m%}-%n- %{\e[0m%}=> '
+        export PS1=$'%{\e[1;36m%}-%n- %{\e[0m%}=> '
         ;;
 
     rxvt*)
+        source ~/.dir_colors
         export TERM="rxvt-256color"
-        export PS1=$'%{\e[1;38;5;82m%}-%n-%{\e[1;38;5;191m%}%t %{\e[1;38;5;194m%}=> %{\e[0m%}'
+        export PS1=$'%{\e[1;38;5;202m%}-%n-%{\e[1;38;5;220m%}%t %{\e[1;38;5;229m%}=> %{\e[0m%}'
         precmd () {
             print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
             vcs_info
