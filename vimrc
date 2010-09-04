@@ -5,12 +5,19 @@
 " colorscheme vividchalk
 " colorscheme neverland
 colorscheme wombat256
-
-let python_highlight_all = 1
-filetype plugin on
 " au WinEnter,FileType ini colorscheme anotherdark
 
+let python_highlight_all = 1
+filetype on
+filetype indent on
+filetype plugin on
+
+" Pathogen
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
 syntax on
+set nocompatible            " disable vi compatibility
 set background=dark
 set mouse=a
 set ts=4
@@ -23,26 +30,27 @@ set ttyfast
 set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
 set wildmode=list:longest   " set wildmenu to list choice
-set nocompatible            " disable vi compatibility
 set hidden
 set backupdir=~/.vim/tmp/backup//
 set directory=~/.vim/tmp/swap//
 
 " Search stuff
-set hlsearch incsearch ignorecase smartcase
+set hlsearch incsearch
+set ignorecase smartcase
 highlight StatusLine cterm=NONE ctermfg=4 ctermbg=7
 
 " Nerd tree stuff
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 noremap gn :NERDTree<Cr>
+
+" Navigation/shortcuts
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-
-" For the colorscheme switcher script
-noremap <silent><F3> :NEXTCOLOR<cr>
-noremap <silent><F2> :PREVCOLOR<cr>
+noremap <F7> :tabnext<cr>
+noremap <F8> :tabprev<cr>
+noremap <C-q> :qa!<cr>
 
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-c> "*Y
