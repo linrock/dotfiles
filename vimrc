@@ -31,6 +31,7 @@ set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
 set wildmode=list:longest   " set wildmenu to list choice
 set hidden
+set cryptmethod=blowfish
 set backupdir=~/.vim/tmp/backup//
 set directory=~/.vim/tmp/swap//
 

@@ -1,0 +1,9 @@
+AwesomePrint.defaults = {
+  :color => {
+    :string => :yellow,
+    :date => :green,
+    :time => :green,
+    :fixnum => :cyan,
+    :float => :cyan
+  }
+}
