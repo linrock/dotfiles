@@ -38,6 +38,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' unstagedstr " *"
 zstyle ':vcs_info:*' stagedstr " +"
 
+setopt prompt_subst
 setopt correct
 setopt appendhistory
 setopt noautomenu
@@ -50,13 +51,13 @@ setopt histignoredups
 #-------------------------
 case $TERM in
     linux)
-        export PS1=$'%{\e[1;36m%}-%n- %{\e[0m%}=> '
+        export PS1="%F{14}-%n- %f=> "
         ;;
 
     rxvt*)
         source ~/.dir_colors
         export TERM="rxvt-256color"
-        export PS1="%F{202}-%n-%F{220}%t %F{229}=> %F{15}"
+        export PS1="%F{202}-%n-%F{220}%t %F{229}=> %f"
         precmd () {
             print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
             vcs_info
