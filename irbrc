@@ -1,14 +1,16 @@
-require 'rubygems'
 require 'wirble'
 require 'bond'
 require 'ap'
 
-# require 'interactive_editor'
-# require 'looksee/shortcuts'
+require 'interactive_editor'
+require 'looksee/shortcuts'
 
 Wirble.init
 Wirble.colorize
 Bond.start
+
+IRB.conf[:USE_READLINE] = true
+IRB.conf[:AUTO_INDENT] = true
 
 IRB::Irb.class_eval do
   def output_value

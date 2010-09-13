@@ -16,8 +16,6 @@ endif
 colorscheme wombat256
 " au WinEnter,FileType ini colorscheme anotherdark
 
-let g:clipbrdDefaultReg = "+"
-
 let python_highlight_all = 1
 highlight StatusLine cterm=NONE ctermfg=4 ctermbg=7
 
@@ -67,21 +65,29 @@ noremap gn :NERDTree<Cr>
 
 noremap j gj
 noremap k gk
+
+noremap <left> :tabp<cr>
+noremap <right> :tabn<cr>
+noremap <up> :bn<cr>
+noremap <down> :bp<cr>
+
 noremap ,y "*Y
 noremap ,p "*p
+noremap ,q :qa!<cr>
 
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
-noremap <F7> :tabnext<cr>
-noremap <F8> :tabprev<cr>
-noremap <C-q> :qa!<cr>
 
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap > >gv
 vnoremap < <gv
 
+" Filetype-specific
+" -----------------
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+
+autocmd BufNewFile,BufRead *.ru set ft=ruby
