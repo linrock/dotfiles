@@ -31,7 +31,7 @@ myXmonadStatusBar = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFF
 mySysStatusBar    = "conky -c ~/.conkyrc | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
 myWorkspaces      = 
     [ "1:term"
-    , "2:fire"
+    , "2:web"
     , "3:dev"
     , "4:ssh"
     , "5:vbox"
@@ -100,7 +100,7 @@ myLogHook h = dynamicLogWithPP $ dzenPP
 
 myLayoutHook = avoidStruts $ smartBorders $
     onWorkspace     "1:term"    (Grid ||| Dishes 2 (1/6)) $
-    onWorkspace     "2:fire"    (noBorders Grid ||| noBorders Full) $
+    onWorkspace     "2:web"     (noBorders Grid ||| noBorders Full) $
     onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6) ||| noBorders Full) $
     onWorkspace     "4:ssh"     (Grid ||| Dishes 2 (1/6)) $
     onWorkspace     "5:vbox"    (noBorders Full) $
@@ -109,24 +109,24 @@ myLayoutHook = avoidStruts $ smartBorders $
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
-    -- [[ isFullscreen        --> doF W.focusDown <+> doFullFloat     ]
-    [[ isFullscreen        --> doFullFloat                          ]
-    ,[ className     =? i  --> doIgnore          |  i  <- myIgnores ]
-    ,[ className     =? c  --> doShift "2:fire"  |  c  <- myFires   ]
-    ,[ className     =? c  --> doShift "5:vbox"  |  c  <- myVMs     ]
-    ,[ className     =? c  --> doShift "8:comm"  |  c  <- myComms   ]
-    ,[ className     =? c  --> doCenterFloat     |  c  <- myFloats  ]
-    ,[ wmName        =? n  --> doCenterFloat     |  n  <- myNames   ]
+    -- [[ isFullscreen        --> doF W.focusDown <+> doFullFloat       ]
+    [[ isFullscreen        --> doFullFloat                           ]
+    ,[ className     =? i  --> doIgnore          |  i  <- myIgnores  ]
+    ,[ className     =? c  --> doShift "2:web"   |  c  <- myBrowsers ]
+    ,[ className     =? c  --> doShift "5:vbox"  |  c  <- myVMs      ]
+    ,[ className     =? c  --> doShift "8:comm"  |  c  <- myComms    ]
+    ,[ className     =? c  --> doCenterFloat     |  c  <- myFloats   ]
+    ,[ wmName        =? n  --> doCenterFloat     |  n  <- myNames    ]
     ])
     where
         -- wmRole    = stringProperty "WM_WINDOW_ROLE"
-        wmName    = stringProperty "WM_NAME"
+        wmName      = stringProperty "WM_NAME"
 
-        myIgnores = ["trayer"]
-        myFires   = ["Firefox", "Minefield"]
-        myVMs     = ["VirtualBox"]
-        myComms   = ["Pidgin"]
-        myFloats  = ["Gtick", "Nitrogen", "feh", "MPlayer", "Pidgin", "Save As..."]
-        myNames   = ["Namoroka Preferences", "Add-ons", "Downloads", "Manage Proxies", "Proxy Info", "Chromium Options", "bashrun"]
+        myIgnores   = ["trayer"]
+        myBrowsers  = ["Firefox", "Minefield", "Namoroka", "Chrome"]
+        myVMs       = ["VirtualBox"]
+        myComms     = ["Pidgin"]
+        myFloats    = ["Gtick", "Nitrogen", "feh", "MPlayer", "Pidgin", "Save As...", "Mirage"]
+        myNames     = ["Namoroka Preferences", "Add-ons", "Downloads", "Manage Proxies", "Proxy Info", "Chromium Preferences"]
 -- }}}
 
