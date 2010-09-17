@@ -47,6 +47,8 @@ set ruler
 set noerrorbells
 set visualbell
 set t_vb=
+set autoindent
+set copyindent
 set ttyfast
 set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
@@ -60,9 +62,10 @@ set incsearch
 set ignorecase
 set smartcase
 
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-noremap gn :NERDTree<Cr>
+let mapleader=","
+let NERDTreeIgnore=['\.pyc$', '\.pyo$']
 
+noremap ; :
 noremap j gj
 noremap k gk
 
@@ -71,9 +74,10 @@ noremap <right> :tabn<cr>
 noremap <up> :bn<cr>
 noremap <down> :bp<cr>
 
-noremap ,y "*Y
-noremap ,p "*p
-noremap ,q :qa!<cr>
+noremap <leader>n :NERDTreeToggle<cr>
+noremap <leader>y "*Y
+noremap <leader>p "*p
+noremap <leader>q :qa!<cr>
 
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
