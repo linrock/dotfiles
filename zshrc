@@ -42,6 +42,7 @@ setopt prompt_subst
 setopt correct
 setopt appendhistory
 setopt noautomenu
+setopt listpacked
 setopt listtypes
 setopt printexitvalue
 setopt histignoredups
@@ -54,17 +55,17 @@ case $TERM in
         export PS1="%F{14}-%n- %f=> "
         ;;
 
-    rxvt*)
+    rxvt*|screen*)
         source ~/.dir_colors
         export TERM="rxvt-256color"
-        export PS1="%F{202}-%n-%F{220}%t %F{229}=> %f"
+        export PS1="%F{208}-%n%F{214}@%F{220}%m- %F{229}%d %F{231}=> %f"
         precmd () {
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a"
+            print -Pn "\e]0;$TERM - %~\a"
             vcs_info
             RPROMPT="${vcs_info_msg_0_}"
         }
         preexec () {
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a"
+            # print -Pn "\e]0;$TERM - %~ ($1)\a"
         }
         ;;
 esac
