@@ -47,8 +47,8 @@ set ruler
 set noerrorbells
 set visualbell
 set t_vb=
-set autoindent
-set copyindent
+" set autoindent
+" set copyindent
 set ttyfast
 set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
@@ -75,8 +75,8 @@ noremap <up> :bn<cr>
 noremap <down> :bp<cr>
 
 noremap <leader>n :NERDTreeToggle<cr>
-noremap <leader>y "*Y
-noremap <leader>p "*p
+noremap <leader>y "*y
+noremap <leader>p "+p
 noremap <leader>q :qa!<cr>
 
 noremap <C-h> <C-w>h
