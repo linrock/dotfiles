@@ -3,6 +3,7 @@ fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
 source ~/.aliases
 source /etc/profile
 
+autoload -U colors && colors
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 bindkey -v
@@ -60,7 +61,7 @@ alias -s html=$EDITOR
 #-------------------------
 case $TERM in
     linux)
-        export PS1="%F{14}-%n- %f=> "
+        export PS1="%{${fg_bold[blue]}%}-%n- %f=> "
         ;;
 
     rxvt*|screen*)
@@ -77,3 +78,4 @@ case $TERM in
         }
         ;;
 esac
+
