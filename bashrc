@@ -1,3 +1,6 @@
+# Check for an interactive session
+[ -z "$PS1" ] && return
+
 fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
 
 # Orange/yellow
@@ -14,22 +17,18 @@ export PATH=$PATH:/usr/local/bin
 export BROWSER=firefox
 export EDITOR=vim
 
+source /etc/profile
+source $HOME/.aliases
+
 case $TERM in
     linux)
-        PS1='\[\e[1;34m\]-\u@\h \W[\e[0;0m\] -> '
+        PS1="\[\e[1;34m\]-\u@\h \W[\e[0;0m\] -> "
         ;;
 
-    rxvt*)
-        TERM=xterm-256color
-        PS1='\[$(tput setaf 82)\]-\u-$(tput setaf 191)($(date +%H:%M))\[$(tput setaf 10)\]$(parse_git_branch)\[$(tput sgr0)\] => '
+    rxvt*|screen*)
+        source $HOME/.dir_colors
+        TERM=rxvt-256color
+        PS1="\[$(tput setaf 255)\]-\u$(tput setaf 251)@$(tput setaf 246)\h $(tput setaf 244)\W\[$(tput sgr0)\] => "
         ;;        
 esac
 
-function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
-set -o vi
-
-source $HOME/.dir_colors
-source $HOME/.aliases
