@@ -15,6 +15,7 @@ export PATH="$(cope_path):${PATH}:/usr/local/bin"
 export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
 
 export EDITOR="vim"
+export PAGER="vimpager"
 export BROWSER="firefox"
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
@@ -46,6 +47,13 @@ setopt listpacked
 setopt listtypes
 setopt printexitvalue
 setopt histignoredups
+
+alias -s txt=$EDITOR
+alias -s sh=$EDITOR
+alias -s py=$EDITOR
+alias -s rb=$EDITOR
+alias -s conf=$EDITOR
+alias -s html=$EDITOR
 
 #-------------------------
 # Term-specific commands
