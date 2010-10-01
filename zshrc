@@ -15,8 +15,8 @@ export SAVEHIST=1000
 export PATH="$(cope_path):${PATH}:/usr/local/bin"
 export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
 
+export PAGER="less"
 export EDITOR="vim"
-export PAGER="vimpager"
 export BROWSER="firefox"
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 

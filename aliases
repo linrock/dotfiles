@@ -7,6 +7,10 @@ alias fgrep='fgrep --color=auto'
 alias pacman='pacman-color'
 alias gtick='aoss gtick'
 alias vi='vim'
+alias man='PAGER=vimpager man'
+
+# Colorize readline prompts
+alias mysql="rlwrap -a -p'1;36;40' mysql"
 
 # Super abbreviations
 alias g='git'
