@@ -12,6 +12,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 
+import XMonad.Util.Themes
 import XMonad.Util.EZConfig
 import XMonad.Util.Run (spawnPipe)
 
@@ -20,6 +21,8 @@ import XMonad.Layout.Dishes
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
+import XMonad.Layout.MultiToggle
 
 import qualified XMonad.StackSet as W
 
@@ -27,7 +30,7 @@ import qualified XMonad.StackSet as W
 myBarBgColor      = "#000000"
 myTerminal        = "urxvtc"
 myFont            = "-*-terminus-medium-*-*-*-12-120-75-75-*-*-iso8859-*"
-myXmonadStatusBar = "dzen2 -x '0' -y '1056' -h '24' -w '1920' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
+myXmonadStatusBar = "dzen2 -x '0' -y '776' -h '24' -w '1280' -ta 'l' -fg '#FFFFFF' -bg '" ++ myBarBgColor ++ "' -fn " ++ myFont
 mySysStatusBar    = "conky -c ~/.conkyrc | dzen2 -x '0' -y '0' -h '24' -w '1920' -ta 'c' -bg '" ++ myBarBgColor ++ "' -fg '#FFFFFF' -fn " ++ myFont
 myWorkspaces      = 
     [ "1:term"
@@ -79,6 +82,8 @@ main = do
             [ ((mod1Mask, xK_F2   ), runOrRaisePrompt myXPConfig)
             , ((mod1Mask, xK_F4   ), kill)                          -- Alt-F4 = quit
             , ((mod1Mask, xK_Tab  ), windows W.focusDown)           -- Alt-Tab = next window
+            , ((mod4Mask, xK_x    ), sendMessage $ Toggle REFLECTX)
+            , ((mod4Mask, xK_y    ), sendMessage $ Toggle REFLECTY)
             , ((mod4Mask, xK_q    ), spawn "xmonad --recompile; killall dzen2; xmonad --restart")
             ]
 -- }}}
@@ -94,18 +99,19 @@ myLogHook h = dynamicLogWithPP $ dzenPP
     , ppWsSep            = " "
     , ppSep              = "  |  "
     , ppLayout           = dzenColor "#ff6600" myBarBgColor . pad
-    , ppTitle            = (" " ++) . dzenColor "#99ff00" myBarBgColor . dzenEscape
+    , ppTitle            = (" " ++) . dzenColor "#ffff00" myBarBgColor . dzenEscape
     , ppOutput           = hPutStrLn h
     }
 
 myLayoutHook = avoidStruts $ smartBorders $
-    onWorkspace     "1:term"    (Grid ||| Dishes 2 (1/6)) $
-    onWorkspace     "2:web"     (noBorders Grid ||| noBorders Full) $
-    onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6) ||| noBorders Full) $
-    onWorkspace     "4:ssh"     (Grid ||| Dishes 2 (1/6)) $
-    onWorkspace     "5:vbox"    (noBorders Full) $
-    onWorkspace     "7:media"   (noBorders Full ||| Grid) $
-    (noBorders Full ||| Grid ||| ThreeCol 1 (3/100) (1/3) ||| Dishes 2 (1/6))
+    mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $
+        onWorkspace     "1:term"    (Grid ||| Dishes 2 (1/6)) $
+        onWorkspace     "2:web"     (noBorders Grid ||| noBorders Full) $
+        onWorkspace     "3:dev"     (Grid ||| Dishes 2 (1/6) ||| noBorders Full) $
+        onWorkspace     "4:ssh"     (Grid ||| Dishes 2 (1/6)) $
+        onWorkspace     "5:vbox"    (noBorders Full) $
+        onWorkspace     "7:media"   (noBorders Full ||| Grid) $
+        (noBorders Full ||| Grid ||| ThreeCol 1 (3/100) (1/3) ||| Dishes 2 (1/6))
 
 myManageHook :: ManageHook
 myManageHook = (composeAll . concat $
