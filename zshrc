@@ -34,11 +34,9 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{3}]-%f '
-zstyle ':vcs_info:*' actionformats '%F{3}-[%F{2}%b%F{10}|%F{10}%a%u%F{3}]-%f '
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' unstagedstr " *"
-zstyle ':vcs_info:*' stagedstr " +"
+zstyle ':vcs_info:*' unstagedstr " %F{220}*"
+zstyle ':vcs_info:*' stagedstr " %F{226}*"
 
 setopt prompt_subst
 setopt correct
@@ -70,6 +68,11 @@ case $TERM in
         export PS1="%F{208}-%n%F{214}@%F{220}%m- %F{229}%d %F{231}=> %f"
         precmd () {
             print -Pn "\e]0;$TERM - %~\a"
+            if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
+                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{3}]-%f '
+            } else {
+                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{208}+%F{3}]-%f '
+            }
             vcs_info
             RPROMPT="${vcs_info_msg_0_}"
         }
