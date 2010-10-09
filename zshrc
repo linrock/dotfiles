@@ -65,7 +65,13 @@ case $TERM in
     rxvt*|screen*)
         source ~/.dir_colors
         export TERM="rxvt-256color"
+
+        # Blue gradient, no curdir
+        # export PS1="%F{21}-%n%F{27}@%F{45}%m- %F{158}=> %f"
+
+        # Orange gradient
         export PS1="%F{208}-%n%F{214}@%F{220}%m- %F{229}%d %F{231}=> %f"
+
         precmd () {
             print -Pn "\e]0;$TERM - %~\a"
             if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
