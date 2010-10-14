@@ -76,7 +76,7 @@ noremap <down> :bp<cr>
 
 noremap <leader>n :NERDTreeToggle<cr>
 noremap <leader>y "*y
-noremap <leader>p "+p
+noremap <leader>p "*p
 noremap <leader>q :qa!<cr>
 
 noremap <C-h> <C-w>h
