@@ -1,19 +1,28 @@
-
+syntax on
 filetype on
 filetype indent on
 filetype plugin on
 
-syntax on
 if has("gui_running")
-    set guifont=Profont\ 10
+    set guioptions+=LlRrb
+    set guioptions-=LlRrb
+    set guifont=Terminus\ 8
     set guioptions-=T
+    colorscheme blackboard
+else
+    colorscheme wombat256
 endif
 
 " colorscheme inkpot
 " colorscheme vibrantink
 " colorscheme vividchalk
 " colorscheme neverland
-colorscheme wombat256
+" colorscheme zenburn
+" colorscheme oceandeep
+
+" runtime! plugin/guicolorscheme.vim
+" GuiColorScheme oceandeep
+
 " au WinEnter,FileType ini colorscheme anotherdark
 
 let python_highlight_all = 1
@@ -24,14 +33,12 @@ call pathogen#runtime_append_all_bundles()
 
 " Pathogen Plugins
 " ----------------
-" uzbl
 " vim-git
 " vim-haml
 " vim-ruby
 " vim-rails
 " vim-endwise
 " vim-fugitive
-" vim-supertab
 
 set nocompatible
 set background=dark
@@ -45,7 +52,6 @@ set laststatus=2
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}%=%l,%c%v%8p
 set ruler
 set noerrorbells
-set visualbell
 set t_vb=
 " set autoindent
 " set copyindent
@@ -62,7 +68,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-let mapleader=","
 let NERDTreeIgnore=['\.pyc$', '\.pyo$']
 
 noremap ; :
@@ -74,6 +79,7 @@ noremap <right> :tabn<cr>
 noremap <up> :bn<cr>
 noremap <down> :bp<cr>
 
+let mapleader=","
 noremap <leader>n :NERDTreeToggle<cr>
 noremap <leader>y "*y
 noremap <leader>p "*p
