@@ -6,6 +6,7 @@ source /etc/profile
 autoload -U colors && colors
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
+
 bindkey -v
 
 export HISTFILE=~/.histfile
@@ -20,13 +21,15 @@ export EDITOR="vim"
 export BROWSER="firefox"
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
+export MOZ_DISABLE_PANGO=1
+
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
 zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:warnings' format '%BNo matches for: %d%b'
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*' force-list always
@@ -46,6 +49,8 @@ setopt listpacked
 setopt listtypes
 setopt printexitvalue
 setopt histignoredups
+setopt histignorespace
+setopt globdots
 
 alias -s txt=$EDITOR
 alias -s sh=$EDITOR
@@ -65,13 +70,7 @@ case $TERM in
     rxvt*|screen*)
         source ~/.dir_colors
         export TERM="rxvt-256color"
-
-        # Blue gradient, no curdir
-        # export PS1="%F{21}-%n%F{27}@%F{45}%m- %F{158}=> %f"
-
-        # Orange gradient
         export PS1="%F{208}-%n%F{214}@%F{220}%m- %F{229}%d %F{231}=> %f"
-
         precmd () {
             print -Pn "\e]0;$TERM - %~\a"
             if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
