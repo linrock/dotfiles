@@ -68,6 +68,7 @@ set incsearch
 set ignorecase
 set smartcase
 
+
 let NERDTreeIgnore=['\.pyc$', '\.pyo$']
 
 noremap ; :
@@ -99,5 +100,7 @@ vnoremap < <gv
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 
 autocmd BufNewFile,BufRead *.ru set ft=ruby
+
