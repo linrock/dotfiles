@@ -46,7 +46,7 @@ urxvt*foreground:         [100]white
 urxvt*fading:             20
 urxvt*fadeColor:          [50]black
 
-urxvt*perl-lib:           /home/rakshasa/.urxvt
+urxvt*perl-lib:           /home/cerberus/.urxvt
 urxvt*perl-ext-common:    vim-scrollback.pl
 !urxvt*perl-ext-common:    mark-yank-urls.pl
 
@@ -54,3 +54,7 @@ urxvt*vim-scrollback:        M-s
 urxvt*vim-scrollback-paste:  M-p
 urxvt*vim-scrollback-bg:     16
 urxvt*vim-scrollback-fg:     10
+
+urxvt*keysym.Home:          \033[1~
+urxvt*keysym.End:           \033[4~
+

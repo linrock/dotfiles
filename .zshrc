@@ -13,8 +13,10 @@ export HISTFILE=~/.histfile
 export HISTSIZE=1000
 export SAVEHIST=1000
 
-export PATH="$(cope_path):${PATH}:/usr/local/bin"
-export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python2.6"
+# export PATH="$(cope_path):${PATH}:/usr/local/bin"
+export PATH="${PATH}:/usr/local/bin"
+export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python"
+export NODE_PATH="${NODE_PATH}:/usr/local/lib/node"
 
 export PAGER="less"
 export EDITOR="vim"
@@ -27,11 +29,16 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.cache/zsh
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'
 zstyle ':completion:*:warnings' format '%BNo matches for: %d%b'
+zstyle ':completion:*:functions' ignored-patterns '_*'
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle ':completion:*:match:*' original only
+
 zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:*:kill:*:processes' command 'ps --forest -A -o pid,user,cmd'
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
@@ -58,6 +65,11 @@ alias -s py=$EDITOR
 alias -s rb=$EDITOR
 alias -s conf=$EDITOR
 alias -s html=$EDITOR
+
+bindkey "\e[A" history-search-backward
+bindkey "\e[B" history-search-forward
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
 
 #-------------------------
 # Term-specific commands
@@ -87,3 +99,8 @@ case $TERM in
         ;;
 esac
 
+if [ "$PS1" ] ; then
+    mkdir -p -m 0700 /dev/cgroup/cpu/user/$$ &> /dev/null
+    echo $$ > /dev/cgroup/cpu/user/$$/tasks
+    echo 1 > /dev/cgroup/cpu/user/$$/notify_on_release
+fi
