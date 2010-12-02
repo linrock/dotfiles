@@ -1,5 +1,4 @@
 fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
-
 source ~/.aliases
 source /etc/profile
 
@@ -59,13 +58,6 @@ setopt histignoredups
 setopt histignorespace
 setopt globdots
 
-alias -s txt=$EDITOR
-alias -s sh=$EDITOR
-alias -s py=$EDITOR
-alias -s rb=$EDITOR
-alias -s conf=$EDITOR
-alias -s html=$EDITOR
-
 bindkey "\e[A" history-search-backward
 bindkey "\e[B" history-search-forward
 bindkey "^[[1~" beginning-of-line
@@ -82,7 +74,7 @@ case $TERM in
     rxvt*|screen*)
         source ~/.dir_colors
         export TERM="rxvt-256color"
-        export PS1="%F{208}-%n%F{214}@%F{220}%m- %F{229}%d %F{231}=> %f"
+        export PS1="%F{26}-%n%F{25}@%F{33}%m- %F{117}%d %F{15}=> %f"
         precmd () {
             print -Pn "\e]0;$TERM - %~\a"
             if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
