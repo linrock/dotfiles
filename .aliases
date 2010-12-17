@@ -4,17 +4,15 @@ alias ls='ls -h -X --color=auto --group-directories-first --hide="*.pyc"'
 alias tree='tree -I "*.pyc"'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias pacman='pacman-color'
-alias gtick='aoss gtick'
-alias vi='vim'
-alias man='PAGER=vimpager man'
 
-# Colorize readline prompts
-alias mysql="rlwrap -a -p'1;36;40' mysql"
+alias pacman='pacman-color'
+alias man='PAGER=vimpager man'
+alias gtick='aoss gtick'
+alias sbagen='aoss sbagen'
 
 # Super abbreviations
+alias l='ls'
 alias g='git'
 alias p='ps ax | grep '
 alias v='vim'
-
-alias raked='rake db:schema:load && rake db:seed'
+alias t='task'
