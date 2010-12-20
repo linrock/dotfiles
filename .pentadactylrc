@@ -1,15 +1,15 @@
 " vim:ft=vim
 
-noremap <C-c> <C-v><C-c>
+set guioptions=bCrsT
+
+noremap <C-l> <A-d>
 
 noremap j 3j
 noremap k 3k
-
-noremap J gT
-noremap K gt
-
+noremap d d<Esc>
+noremap J <C-S-Tab><Esc>
+noremap K <C-Tab><Esc>
 noremap U :tabmove -1<cr>
 noremap I :tabmove +1<cr>
 
-noremap p<cr>
-map m :bmarks<cr>
+noremap m :bmarks<cr>
