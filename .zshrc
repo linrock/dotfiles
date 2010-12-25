@@ -48,7 +48,6 @@ zstyle ':vcs_info:*' unstagedstr " %F{220}*"
 zstyle ':vcs_info:*' stagedstr " %F{226}*"
 
 setopt prompt_subst
-setopt correct
 setopt appendhistory
 setopt noautomenu
 setopt listpacked
