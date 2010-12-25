@@ -49,7 +49,7 @@ set sw=4
 set number
 set expandtab
 set laststatus=2
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}%=%l,%c%v%8p
+set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}%=%l,%c%8p
 set ruler
 set noerrorbells
 set t_vb=
@@ -91,16 +91,26 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
+noremap - <C-w>-
+noremap + <C-w>+
+noremap <C-n> <C-w><
+noremap <C-m> <C-w>>
+
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap > >gv
 vnoremap < <gv
 
 " Filetype-specific
 " -----------------
+" autocmd Filetype python set tags+=~/.vim/tags/python27.ctags
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+autocmd Filetype sass setlocal ts=2 sts=2 sw=2
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 
+autocmd FileType cfg colorscheme inkpot
+
 autocmd BufNewFile,BufRead *.ru set ft=ruby
+autocmd BufNewFile,BufRead *.mako set ft=mako
 
