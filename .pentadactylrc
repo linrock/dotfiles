@@ -13,3 +13,4 @@ noremap U :tabmove -1<cr>
 noremap I :tabmove +1<cr>
 
 noremap m :bmarks<cr>
+noremap p :open <S-Insert>
