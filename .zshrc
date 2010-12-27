@@ -18,6 +18,7 @@ export PYTHONPATH="${PYTHONPATH}:/usr/local/lib/python"
 export NODE_PATH="${NODE_PATH}:/usr/local/lib/node"
 
 export PAGER="less"
+export LESS="-R"
 export EDITOR="vim"
 export BROWSER="firefox"
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
