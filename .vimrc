@@ -3,33 +3,25 @@ filetype on
 filetype indent on
 filetype plugin on
 
+set background=dark
 if has("gui_running")
-    set guioptions+=LlRrb
-    set guioptions-=LlRrb
-    set guifont=Terminus\ 8
+    set guioptions+=mLlRrb
+    set guioptions-=mLlRrb
     set guioptions-=T
+    set guioptions+=c
+    set guifont=Profont\ 8
     colorscheme blackboard
 else
-    colorscheme wombat256
+    colorscheme inkpot256
 endif
-
-" colorscheme inkpot
-" colorscheme vibrantink
-" colorscheme vividchalk
-" colorscheme neverland
-" colorscheme zenburn
-" colorscheme oceandeep
-
-" runtime! plugin/guicolorscheme.vim
-" GuiColorScheme oceandeep
-
-" au WinEnter,FileType ini colorscheme anotherdark
-
-let python_highlight_all = 1
 highlight StatusLine cterm=NONE ctermfg=4 ctermbg=7
 
-call pathogen#helptags()
+let python_highlight_all = 1
+let NERDTreeIgnore=['\.pyc$', '\.pyo$']
+let mapleader=","
+
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
 " Pathogen Plugins
 " ----------------
@@ -41,7 +33,6 @@ call pathogen#runtime_append_all_bundles()
 " vim-fugitive
 
 set nocompatible
-set background=dark
 set mouse=a
 set ts=4
 set sts=4
@@ -68,9 +59,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-
-let NERDTreeIgnore=['\.pyc$', '\.pyo$']
-
 noremap ; :
 noremap j gj
 noremap k gk
@@ -80,7 +68,6 @@ noremap <right> :tabn<cr>
 noremap <up> :bn<cr>
 noremap <down> :bp<cr>
 
-let mapleader=","
 noremap <leader>n :NERDTreeToggle<cr>
 noremap <leader>y "*y
 noremap <leader>p "*p
@@ -103,14 +90,18 @@ vnoremap < <gv
 " Filetype-specific
 " -----------------
 " autocmd Filetype python set tags+=~/.vim/tags/python27.ctags
+" autocmd FileType cfg colorscheme inkpot
+" autocmd WinEnter,FileType ini colorscheme anotherdark
+
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-autocmd Filetype sass setlocal ts=2 sts=2 sw=2
+autocmd Filetype jade setlocal ts=2 sts=2 sw=2 indentexpr=
+autocmd Filetype sass setlocal ts=2 sts=2 sw=2 indentexpr=
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 
-autocmd FileType cfg colorscheme inkpot
+" autocmd Filetype css set omnifunc=csscomplete#CompleteCSS
 
 autocmd BufNewFile,BufRead *.ru set ft=ruby
 autocmd BufNewFile,BufRead *.mako set ft=mako
-
+autocmd BufNewFile,BufRead *.jinja set ft=htmljinja
