@@ -72,7 +72,7 @@ case $TERM in
         ;;
 
     rxvt*|screen*)
-        source ~/.dir_colors
+        eval $(dircolors ~/.dir_colors)
         export TERM="rxvt-256color"
         export PS1="%F{26}-%n%F{25}@%F{33}%m- %F{117}%d %F{15}=> %f"
         precmd () {
