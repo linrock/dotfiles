@@ -44,8 +44,7 @@ set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']['.&ft.']'}
 set ruler
 set noerrorbells
 set t_vb=
-" set autoindent
-" set copyindent
+set autoindent
 set ttyfast
 set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
@@ -63,12 +62,8 @@ noremap ; :
 noremap j gj
 noremap k gk
 
-noremap <left> :tabp<cr>
-noremap <right> :tabn<cr>
-noremap <up> :bn<cr>
-noremap <down> :bp<cr>
-
 noremap <leader>n :NERDTreeToggle<cr>
+noremap <leader>m :MRU<cr>
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>q :qa!<cr>
@@ -93,15 +88,17 @@ vnoremap < <gv
 " autocmd FileType cfg colorscheme inkpot
 " autocmd WinEnter,FileType ini colorscheme anotherdark
 
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-autocmd Filetype jade setlocal ts=2 sts=2 sw=2 indentexpr=
-autocmd Filetype sass setlocal ts=2 sts=2 sw=2 indentexpr=
-autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+au Filetype javascript setlocal ts=2 sts=2 sw=2
+au Filetype ruby setlocal ts=2 sts=2 sw=2
+au Filetype haml setlocal ts=2 sts=2 sw=2
+au Filetype jade setlocal ts=2 sts=2 sw=2 indentexpr=
+au Filetype sass setlocal ts=2 sts=2 sw=2 indentexpr=
+au Filetype yaml setlocal ts=2 sts=2 sw=2
 
-" autocmd Filetype css set omnifunc=csscomplete#CompleteCSS
-
-autocmd BufNewFile,BufRead *.ru set ft=ruby
-autocmd BufNewFile,BufRead *.mako set ft=mako
-autocmd BufNewFile,BufRead *.jinja set ft=htmljinja
+au BufNewFile,BufRead *.ru                      set ft=ruby
+au BufNewFile,BufRead *.mako                    set ft=mako
+au BufNewFile,BufRead *.jade                    set ft=jade
+au BufNewFile,BufRead *.jinja                   set ft=htmljinja
+au BufNewFile,BufRead /etc/nginx/conf/*.conf    set ft=nginx
+au BufNewFile,BufRead jquery.*.js               set ft=javascript syntax=jquery
+au BufNewFile,BufRead *.ini,*/.hgrc,*/.hg/hgrc  set ft=ini
