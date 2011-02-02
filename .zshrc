@@ -1,4 +1,33 @@
 fortune -a | cowsay -f $(ls -1 /usr/share/cows | shuf -n 1)
+
+#-------------------------
+# Term-specific commands
+#-------------------------
+case $TERM in
+    linux)
+        export PS1="%{${fg_bold[blue]}%}-%n- %f=> "
+        ;;
+
+    rxvt*|screen*)
+        eval $(dircolors ~/.dir_colors)
+        export TERM="rxvt-256color"
+        export PS1="%F{26}-%n%F{25}@%F{33}%m- %F{117}%d %F{15}=> %f"
+        precmd () {
+            print -Pn "\e]0;$TERM - %~\a"
+            if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
+                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{3}]-%f '
+            } else {
+                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{208}+%F{3}]-%f '
+            }
+            vcs_info
+            RPROMPT="${vcs_info_msg_0_}"
+        }
+        preexec () {
+            # print -Pn "\e]0;$TERM - %~ ($1)\a"
+        }
+        ;;
+esac
+
 source ~/.aliases
 source /etc/profile
 
@@ -62,34 +91,6 @@ bindkey "\e[A" history-search-backward
 bindkey "\e[B" history-search-forward
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
-
-#-------------------------
-# Term-specific commands
-#-------------------------
-case $TERM in
-    linux)
-        export PS1="%{${fg_bold[blue]}%}-%n- %f=> "
-        ;;
-
-    rxvt*|screen*)
-        eval $(dircolors ~/.dir_colors)
-        export TERM="rxvt-256color"
-        export PS1="%F{26}-%n%F{25}@%F{33}%m- %F{117}%d %F{15}=> %f"
-        precmd () {
-            print -Pn "\e]0;$TERM - %~\a"
-            if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null ) ]] {
-                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{3}]-%f '
-            } else {
-                zstyle ':vcs_info:*' formats '%F{3}-[%F{10}%b%a%u%F{208}+%F{3}]-%f '
-            }
-            vcs_info
-            RPROMPT="${vcs_info_msg_0_}"
-        }
-        preexec () {
-            # print -Pn "\e]0;$TERM - %~ ($1)\a"
-        }
-        ;;
-esac
 
 if [ "$PS1" ] ; then
     mkdir -p -m 0700 /dev/cgroup/cpu/user/$$ &> /dev/null
