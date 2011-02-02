@@ -12,7 +12,7 @@ if has("gui_running")
     set guifont=Profont\ 8
     colorscheme blackboard
 else
-    colorscheme inkpot256
+    colorscheme blackboard
 endif
 highlight StatusLine cterm=NONE ctermfg=4 ctermbg=7
 
@@ -25,8 +25,14 @@ call pathogen#helptags()
 
 " Pathogen Plugins
 " ----------------
+" CSApprox
+" MRU
+" ScrollColors
+" nerdtree
 " vim-git
 " vim-haml
+" vim-jade
+" vim-markdown
 " vim-ruby
 " vim-rails
 " vim-endwise
@@ -49,7 +55,7 @@ set ttyfast
 set scrolloff=5             " Keep 5 lines around the cursor
 set wildmenu                " turn on wild menu :e <Tab>
 set wildmode=list:longest   " set wildmenu to list choice
-set hidden
+set nohidden
 set cryptmethod=blowfish
 set backupdir=~/.vim/tmp/backup
 set directory=~/.vim/tmp/swap
