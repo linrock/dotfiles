@@ -2,7 +2,8 @@
 
 background no
 out_to_console yes
-update_interval 1
+update_interval 0.5
+blink text_and_other_conky_vars
 
 # Disk IO
 # ^fg(\#ebac54)^i(/home/fenrir/.dzen/icons/diskette.xbm) ^fg(white)${diskio}^fg(\#808080) - \
@@ -29,19 +30,23 @@ ${cpu cpu2}% \
 ^fg(\#e9cfec)^i(/home/fenrir/.dzen/icons/mem.xbm) \
 ^fg(white)${mem} (${memperc}%)^fg(\#808080) - \
 \
-${if_existing /sys/class/net/wlan0/operstate up }\
 ^fg(\#99ffff)^i(/home/fenrir/.dzen/icons/wifi_02.xbm) \
-^fg(white)${addr wlan0} \
+^fg(white)${addr wlan1} \
 ^fg(yellow)(${execi 60 iwgetid | sed -ne 's|.*"\(.*\)"|\1|p'})^fg(\#808080) - \
-${endif}\
 \
 ^fg(\#87f717)^i(/home/fenrir/.dzen/icons/net_down_03.xbm)\
-^fg(white) ${downspeedf wlan0} kb/s^fg(\#808080) \
+^fg(white) ${downspeedf wlan1} kb/s^fg(\#808080) \
 ^fg(\#f75d79)^i(/home/fenrir/.dzen/icons/net_up_03.xbm)\
-^fg(white) ${upspeedf wlan0} kb/s^fg(\#808080) - \
+^fg(white) ${upspeedf wlan1} kb/s^fg(\#808080) - \
 ^fg(yellow)^i(/home/fenrir/.dzen/icons/bat_full_01.xbm) \
-^fg(white)${battery}^fg(\#808080) - \
+${if_match ${battery_percent BAT0} <= 60}^fg(red)${blink ${battery BAT0} (LOW BATTERY)}${endif}\
+${if_match ${battery_percent BAT0} > 60}\
+${if_match ${battery_percent BAT0} <= 80}^fg(yellow)${endif}\
+${if_match ${battery_percent BAT0} > 90}^fg(green)${endif}\
+${battery}\
+${endif}\
+^fg(\#808080) - \
 ^fg(\#95b9c7)^i(/home/fenrir/.dzen/icons/spkr_01.xbm) \
-^fg(white)${if_mixer_mute}Muted${else}${mixer}%${endif}^fg(\#808080) - \
+^fg(white)${execi 0.5 volume}^fg(\#808080) - \
 ^fg(yellow)^i(/home/fenrir/.dzen/icons/clock.xbm) \
 ^fg(white)${time %a %D}^fg(\#ffe87c) ${time %H:%M:%S}
