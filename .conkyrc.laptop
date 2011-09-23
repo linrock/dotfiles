@@ -39,11 +39,13 @@ ${cpu cpu2}% \
 ^fg(\#f75d79)^i(/home/fenrir/.dzen/icons/net_up_03.xbm)\
 ^fg(white) ${upspeedf wlan1} kb/s^fg(\#808080) - \
 ^fg(yellow)^i(/home/fenrir/.dzen/icons/bat_full_01.xbm) \
-${if_match ${battery_percent BAT0} <= 60}^fg(red)${blink ${battery BAT0} (LOW BATTERY)}${endif}\
-${if_match ${battery_percent BAT0} > 60}\
+${if_empty ${execi 1 acpi -b | grep Discharging}}^fg(yellow)charging ${endif}\
+${if_empty ${execi 1 acpi -b | grep Charging}}^fg(red)${blink discharging} ${endif}\
+${if_match ${battery_percent BAT0} <= 49}^fg(red)${blink ${battery_percent BAT0}% (WARNING)}${endif}\
+${if_match ${battery_percent BAT0} > 49}\
 ${if_match ${battery_percent BAT0} <= 80}^fg(yellow)${endif}\
 ${if_match ${battery_percent BAT0} > 90}^fg(green)${endif}\
-${battery}\
+${battery_percent}%\
 ${endif}\
 ^fg(\#808080) - \
 ^fg(\#95b9c7)^i(/home/fenrir/.dzen/icons/spkr_01.xbm) \
