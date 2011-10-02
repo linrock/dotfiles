@@ -1,13 +1,14 @@
-#!/bin/sh
+nitrogen --restore &
+xbindkeys &
+unclutter -jitter 20 &
+redshift -l 37.4:-122 -t 6000:4800 -m vidmode &
+# xcompmgr -cCfF -r0 -D3 &
+# urxvtd -q -f -o
 
-nitrogen --restore              # set backgrounds
-unclutter -jitter 20 &          # hide inactive mouse
-xcompmgr -Ff -D4.2 &            # for compositing/transparency
-xbindkeys &                     # custom hot keys
-urxvtd -q -f -o
+xset r rate 160 65
+xset m 0
+xsetroot -cursor_name left_ptr
+# xrandr --output Monitor1 --auto --right-of Monitor0
 
-xsetroot -cursor_name left_ptr  # use a real mouse pointer
-xset r rate 175 60              # set keystroke repeat rate
-xset m 0                        # disable mouse acceleration
-
+# exec awesome
 exec xmonad
