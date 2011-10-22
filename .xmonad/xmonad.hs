@@ -22,7 +22,6 @@ import XMonad.Layout.Grid
 import XMonad.Layout.Dishes
 import XMonad.Layout.Minimize
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.TwoPane
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
@@ -67,6 +66,7 @@ main = do
         , manageHook            = myManageHook
         , logHook               = myLogHook dzenTopBar
         , startupHook           = ewmhDesktopsStartup >> setWMName "LG3D"
+        , handleEventHook       = fullscreenEventHook
         , modMask               = mod4Mask      -- set the mod key to the windows key
         , borderWidth           = 2
         , focusFollowsMouse     = False
@@ -104,10 +104,10 @@ myLogHook h = dynamicLogWithPP $ dzenPP
 -- myLayoutHook = avoidStruts $ smartBorders $ minimize $
 myLayoutHook = avoidStruts $ smartBorders $
     mkToggle (single REFLECTX) $ mkToggle (single REFLECTY) $
-        onWorkspace     ".1:"    (Grid ||| ThreeCol 1 (3/100) (1/3) ||| TwoPane (3/100) (1/2) ||| Full) $
+        onWorkspace     ".1:"    (Grid ||| ThreeCol 1 (3/100) (1/3) ||| noBorders Full) $
         onWorkspace     ":2."    (noBorders Full ||| Grid ||| ThreeCol 1 (3/100) (1/3)) $
         onWorkspace     ".3:"    (Grid ||| ThreeCol 1 (3/100) (1/3) ||| noBorders Full) $
-        onWorkspace     ":4."    (Grid ||| ThreeCol 1 (3/100) (1/3) ||| Full) $
+        onWorkspace     ":4."    (Grid ||| ThreeCol 1 (3/100) (1/3) ||| noBorders Full) $
         onWorkspace     ".5:"    (Grid ||| noBorders Full) $
         onWorkspace     ":6:"    simpleFloat $
         onWorkspace     ".7:"    (noBorders Full ||| Grid) $
